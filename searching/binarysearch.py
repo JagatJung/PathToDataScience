@@ -4,48 +4,43 @@
 # Otherwise, narrow it to the upper half.
 # Repeatedly check from the second point until the value is found or the interval is empty.
 
-from array import array
+import math
 
 
-def getMiddleElement(x):
-
-    if x%2==0:
-        return int(x/2)
-
-    else:
-        return int(x/2+1)
+def getMiddleElement(low, high):
+    midnum= low + (high-low)/2
+    return int(math.ceil(midnum))
 
 
-def theSearcher(tofind, searchList):
+def theSearcher(low, high, tofind, searchList):
     
-    midnum= getMiddleElement(len(searchList))
+    midnum= getMiddleElement(low, high)
     print(searchList)
     print (midnum)
-    if(midnum>1):
+    if(midnum>0):
 
         if(tofind == searchList[midnum]):
             print("match Found")
 
         elif tofind < searchList[midnum]:
             searchList = searchList[:midnum]
-            theSearcher(tofind, searchList)
-        
+            theSearcher(0,len(searchList)-1,tofind, searchList)
+
         elif tofind > searchList[midnum]:
             searchList = searchList[midnum:]
-            theSearcher(tofind, searchList)
-        
+            theSearcher(0,len(searchList)-1,tofind, searchList)
     else: 
         print("Match not found")
 
 
-tofind=8
+tofind=int(input("Enter the number to find"))
 
 searchList=[121,22,30,54,1,29,8]
 
 # sorting the list
 searchList.sort()
 
-theSearcher(tofind,searchList)
+theSearcher(0, len(searchList)-1,tofind,searchList)
 
 
 
